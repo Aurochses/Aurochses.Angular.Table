@@ -26,6 +26,8 @@ export class TableComponent<T> implements OnInit {
   properties: string[];
   columnsToDisplay: string[];
   actions: Actions;
+  allowEdit = true;
+  allowDelete = true;
 
   constructor(private dialog: MatDialog) { }
 
@@ -42,9 +44,18 @@ export class TableComponent<T> implements OnInit {
       );
 
     this.actions = new Actions(this.prototype);
+    console.log(this.actions);
 
     if (this.actions.show === true) {
       this.columnsToDisplay.push(this.actionsColumnName);
+    }
+
+    if (!this.actions.allowEdit) {
+      this.allowEdit = false;
+    }
+
+    if (!this.actions.allowDelete) {
+      this.allowDelete = false;
     }
   }
 
