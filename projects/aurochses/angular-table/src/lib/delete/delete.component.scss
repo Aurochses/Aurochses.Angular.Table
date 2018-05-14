@@ -1,0 +1,53 @@
+$icon-size: 96px;
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+  margin-right: 20px;
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+.icon-container {
+  min-width: $icon-size;
+}
+
+.icon-container mat-icon {
+  font-size: $icon-size;
+  color: red;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  @media (max-width: 480px) {
+    text-align: center;
+    padding: 0;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.controls button {
+  margin-bottom: 10px;
+}

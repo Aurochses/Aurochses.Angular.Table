@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { MatTableDataSource } from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 
 import { ActionsMetadata } from './decorators/actions.decorator';
 import { DisplayMetadata } from './decorators/display.decorator';
 import { HiddenMetadata } from './decorators/hidden.decorator';
 
 import { Actions } from './models/actions.model';
+import { DeleteComponent} from "./delete/delete.component";
 
 @Component({
   selector: 'aur-table',
@@ -26,7 +27,7 @@ export class TableComponent<T> implements OnInit {
   columnsToDisplay: string[];
   actions: Actions;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
     this.prototype = Object.getPrototypeOf(this.viewModel);
@@ -53,6 +54,22 @@ export class TableComponent<T> implements OnInit {
     } else {
       return property;
     }
+  }
+
+  edit (item) {
+    console.log('edited', item);
+  }
+
+  delete(item) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {name: item.title}
+    });
+
+    dialogRef.afterClosed().subscribe(remove => {
+      if (remove) {
+        console.log('User is sure')
+      }
+    });
   }
 
 }

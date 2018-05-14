@@ -1,0 +1,6 @@
+<button mat-icon-button color="primary" (click)="edit()" disabled="{{ !allowEdit() }}">
+  <mat-icon>edit</mat-icon>
+</button>
+<button mat-icon-button color="primary" (click)="delete()" disabled="{{ !allowDelete() }}">
+  <mat-icon>delete</mat-icon>
+</button>
