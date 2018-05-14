@@ -8,11 +8,12 @@ export class TableComponent<T> implements OnInit {
 
   @Input() viewModel: T;
 
+  properties: string[];
+
   constructor() { }
 
   ngOnInit() {
-    console.log(this.viewModel);
-    console.log(Object.getOwnPropertyNames(this.viewModel));
+    this.properties = Object.keys(this.viewModel);
   }
 
 }
