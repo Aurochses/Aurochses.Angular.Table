@@ -5,7 +5,8 @@ import { MatTableDataSource } from '@angular/material';
 import { ActionsMetadata } from './decorators/actions.decorator';
 import { DisplayMetadata } from './decorators/display.decorator';
 import { HiddenMetadata } from './decorators/hidden.decorator';
-import { Display } from './models/display.model';
+
+import { Actions } from './models/actions.model';
 
 @Component({
   selector: 'aur-table',
@@ -23,6 +24,7 @@ export class TableComponent<T> implements OnInit {
 
   properties: string[];
   columnsToDisplay: string[];
+  actions: Actions;
 
   constructor() { }
 
@@ -38,22 +40,19 @@ export class TableComponent<T> implements OnInit {
         }
       );
 
-    if (`${ActionsMetadata.show}` in this.prototype.constructor
-      && this.prototype.constructor[`${ActionsMetadata.show}`] === true) {
-        this.columnsToDisplay.push(this.actionsColumnName);
+    this.actions = new Actions(this.prototype);
+
+    if (this.actions.show === true) {
+      this.columnsToDisplay.push(this.actionsColumnName);
     }
   }
 
-  getDisplay(property: string): Display {
-    const display = new Display();
-
+  getDisplayName(property: string): string {
     if (`${DisplayMetadata.displayName}${property}` in this.prototype) {
-      display.name = this.prototype[`${DisplayMetadata.displayName}${property}`];
+      return this.prototype[`${DisplayMetadata.displayName}${property}`];
     } else {
-      display.name = property;
+      return property;
     }
-
-    return display;
   }
 
 }
