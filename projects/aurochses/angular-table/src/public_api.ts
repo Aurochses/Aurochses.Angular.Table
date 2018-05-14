@@ -2,6 +2,4 @@
  * Public API Surface of angular-table
  */
 
-export * from './lib/angular-table.service';
-export * from './lib/angular-table.component';
-export * from './lib/angular-table.module';
+export * from './lib/table.module';
