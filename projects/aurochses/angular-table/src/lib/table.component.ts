@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material';
 
+import { ActionsMetadata } from './decorators/actions.decorator';
 import { DisplayMetadata } from './decorators/display.decorator';
 import { HiddenMetadata } from './decorators/hidden.decorator';
 import { Display } from './models/display.model';
@@ -13,10 +14,13 @@ import { Display } from './models/display.model';
 })
 export class TableComponent<T> implements OnInit {
 
+  actionsColumnName = 'actionsColumn';
+
   @Input() viewModel: T;
   @Input() dataSource: MatTableDataSource<T>;
 
-  prototype: any;
+  private prototype: any;
+
   properties: string[];
   columnsToDisplay: string[];
 
@@ -25,11 +29,8 @@ export class TableComponent<T> implements OnInit {
   ngOnInit() {
     this.prototype = Object.getPrototypeOf(this.viewModel);
     this.properties = Object.keys(this.viewModel);
-    this.columnsToDisplay = this.getColumnsToDisplay();
-  }
 
-  private getColumnsToDisplay(): string[] {
-    const items = this.properties
+    this.columnsToDisplay = this.properties
       .filter(
         (property) => {
           return !(`${HiddenMetadata.isHidden}${property}` in this.prototype
@@ -37,12 +38,13 @@ export class TableComponent<T> implements OnInit {
         }
       );
 
-    items.push('actions');
-
-    return items;
+    if (`${ActionsMetadata.show}` in this.prototype.constructor
+      && this.prototype.constructor[`${ActionsMetadata.show}`] === true) {
+        this.columnsToDisplay.push(this.actionsColumnName);
+    }
   }
 
-  private getDisplay(property: string): Display {
+  getDisplay(property: string): Display {
     const display = new Display();
 
     if (`${DisplayMetadata.displayName}${property}` in this.prototype) {

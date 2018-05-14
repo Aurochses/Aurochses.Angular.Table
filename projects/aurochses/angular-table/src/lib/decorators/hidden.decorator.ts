@@ -1,9 +1,9 @@
 export function Hidden(hide = true) {
     return function hiddenInternal(target: Object, property: string | symbol): void {
         Object.defineProperty(target, `${HiddenMetadata.isHidden}${property.toString()}`, {
-            configurable: false,
+            value: hide,
             enumerable: false,
-            value: hide
+            configurable: false
         });
     };
 }
