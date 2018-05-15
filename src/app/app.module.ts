@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { TableModule } from '@aurochses/angular-table';
-
+import { AppRoutesModule } from './app-routes.module';
 import { AppComponent } from './app.component';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [
@@ -11,9 +12,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    TableModule
+    RouterModule,
+    AppRoutesModule,
+    MainModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

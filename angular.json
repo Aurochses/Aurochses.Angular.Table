@@ -125,7 +125,7 @@
       "root": "projects/aurochses/angular-table",
       "sourceRoot": "projects/aurochses/angular-table/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "aur",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -162,5 +162,5 @@
       }
     }
   },
-  "defaultProject": "demo"
+  "defaultProject": "@aurochses/angular-table"
 }

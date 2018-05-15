@@ -1,13 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { ActionsMetadata } from './decorators/actions.decorator';
 import { DisplayMetadata } from './decorators/display.decorator';
 import { HiddenMetadata } from './decorators/hidden.decorator';
 
-import { Actions } from './models/actions.model';
-import { DeleteComponent} from "./delete/delete.component";
+import { ActionsModel } from './models/actions.model';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'aur-table',
@@ -21,13 +22,14 @@ export class TableComponent<T> implements OnInit {
   @Input() viewModel: T;
   @Input() dataSource: MatTableDataSource<T>;
 
+  @Output() edited = new EventEmitter<T>();
+  @Output() deleted = new EventEmitter();
+
   private prototype: any;
 
   properties: string[];
   columnsToDisplay: string[];
-  actions: Actions;
-  allowEdit = true;
-  allowDelete = true;
+  actions: ActionsModel;
 
   constructor(private dialog: MatDialog) { }
 
@@ -43,19 +45,10 @@ export class TableComponent<T> implements OnInit {
         }
       );
 
-    this.actions = new Actions(this.prototype);
-    console.log(this.actions);
+    this.actions = new ActionsModel(this.prototype);
 
     if (this.actions.show === true) {
       this.columnsToDisplay.push(this.actionsColumnName);
-    }
-
-    if (!this.actions.allowEdit) {
-      this.allowEdit = false;
-    }
-
-    if (!this.actions.allowDelete) {
-      this.allowDelete = false;
     }
   }
 
@@ -67,20 +60,20 @@ export class TableComponent<T> implements OnInit {
     }
   }
 
-  edit (item) {
-    console.log('edited', item);
+  edit(item): void {
+    this.edited.emit(item);
   }
 
-  delete(item) {
-    const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {name: item.title}
-    });
+  delete(item): void {
+    const dialog = this.dialog.open(DeleteDialogComponent);
 
-    dialogRef.afterClosed().subscribe(remove => {
-      if (remove) {
-        console.log('User is sure')
+    dialog.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.deleted.emit(item);
+        }
       }
-    });
+    );
   }
 
 }

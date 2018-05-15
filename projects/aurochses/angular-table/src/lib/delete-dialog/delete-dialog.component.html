@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="info">
+    <div class="icon-container">
+      <mat-icon>report_problem</mat-icon>
+    </div>
+    <div class="text">Are you sure you want to delete this?</div>
+  </div>
+  <div class="controls">
+    <button mat-raised-button (click)="this.dialogRef.close(true)">Yes</button>
+    <button mat-raised-button (click)="this.dialogRef.close()">No</button>
+  </div>
+</div>

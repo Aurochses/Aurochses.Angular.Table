@@ -1,6 +1,6 @@
 import { ActionsMetadata } from '../decorators/actions.decorator';
 
-export class Actions {
+export class ActionsModel {
 
     constructor(prototype: any) {
         if (`${ActionsMetadata.show}` in prototype.constructor && prototype.constructor[`${ActionsMetadata.show}`] === true) {

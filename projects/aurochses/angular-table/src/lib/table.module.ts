@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { TableComponent } from './table.component';
-import { TableActionsComponent } from "./table-actions/table-actions.component";
-import { MatIconModule} from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
-import { MatDialogModule } from "@angular/material/dialog";
-import { DeleteComponent } from "./delete/delete.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   imports: [
@@ -22,14 +21,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   ],
   declarations: [
     TableComponent,
-    TableActionsComponent,
-    DeleteComponent
+    DeleteDialogComponent
+  ],
+  entryComponents: [
+    DeleteDialogComponent
   ],
   exports: [
     TableComponent
-  ],
-  entryComponents: [
-    DeleteComponent
   ]
 })
-export class TableModule { }
+export class AurTableModule { }
