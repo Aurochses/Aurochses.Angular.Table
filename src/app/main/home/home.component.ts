@@ -13,6 +13,10 @@ export class HomeComponent {
   viewModel: TableModel = new TableModel();
   dataSource = new MatTableDataSource(DATA);
 
+  add(): void {
+    console.log('user clicked add button');
+  }
+
   edit(item: TableModel): void {
     console.log(item);
   }

@@ -22,6 +22,7 @@ export class TableComponent<T> implements OnInit {
   @Input() viewModel: T;
   @Input() dataSource: MatTableDataSource<T>;
 
+  @Output() added = new EventEmitter<T>();
   @Output() edited = new EventEmitter<T>();
   @Output() deleted = new EventEmitter();
 
@@ -58,6 +59,10 @@ export class TableComponent<T> implements OnInit {
     } else {
       return property;
     }
+  }
+
+  add(): void {
+    this.added.emit();
   }
 
   edit(item): void {
