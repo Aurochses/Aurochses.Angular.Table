@@ -1,10 +1,14 @@
 export function Display(name: string) {
     return function displayInternal(target: Object, property: string | symbol): void {
-        Object.defineProperty(target, `${DisplayMetadata.displayName}${property.toString()}`, {
-            value: name,
-            enumerable: false,
-            configurable: false
-        });
+        Object.defineProperty(
+            target,
+            `${DisplayMetadata.displayName}${property.toString()}`,
+            {
+                value: name,
+                enumerable: false,
+                configurable: false
+            }
+        );
     };
 }
 
