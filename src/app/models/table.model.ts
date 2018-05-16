@@ -2,7 +2,7 @@ import { Actions, Display, Hidden } from '@aurochses/angular-table';
 
 @Actions()
 export class TableModel {
-    @Display('Id Column')
+    @Display('TABLE.ID_COLUMN')
     id = '';
     @Hidden()
     icon = '';

@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     CommonModule,
-    AurTableModule
+    AurTableModule,
   ]
 })
 export class MainModule { }

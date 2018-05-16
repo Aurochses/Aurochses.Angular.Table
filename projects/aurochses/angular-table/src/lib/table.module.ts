@@ -10,6 +10,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { TableComponent } from './table.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslateModule
   ],
   declarations: [
     TableComponent,
