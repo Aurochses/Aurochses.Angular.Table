@@ -2,7 +2,7 @@ export function Hidden(hide = true) {
     return function hiddenInternal(target: Object, property: string | symbol): void {
         Object.defineProperty(
             target,
-            `${HiddenMetadata.isHidden}${property.toString()}`,
+            `${HiddenMetadata.hidden}${property.toString()}`,
             {
                 value: hide,
                 enumerable: false,
@@ -12,6 +12,12 @@ export function Hidden(hide = true) {
     };
 }
 
-export class HiddenMetadata {
-    public static isHidden = '__isHidden__';
+export function isHidden<T>(instance: T, property: string): boolean {
+    const prototype = Object.getPrototypeOf(instance);
+
+    return !!prototype[`${HiddenMetadata.hidden}${property}`];
+}
+
+class HiddenMetadata {
+    public static hidden = '__hidden__';
 }
