@@ -1,0 +1,12 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'aur-delete-dialog',
+  templateUrl: './delete-dialog.component.html',
+  styleUrls: ['./delete-dialog.component.scss']
+})
+export class DeleteDialogComponent {
+
+  constructor() { }
+
+}
