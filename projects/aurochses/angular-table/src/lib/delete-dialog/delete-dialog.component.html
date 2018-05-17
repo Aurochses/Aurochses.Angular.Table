@@ -3,10 +3,10 @@
     <div class="icon-container">
       <mat-icon>report_problem</mat-icon>
     </div>
-    <div class="text">Are you sure you want to delete this?</div>
+    <div class="text">{{'AUR_TABLE.ACTIONS.DELETE.CONFIRMATION_MESSAGE' | translate}}</div>
   </div>
   <div class="controls">
-    <button mat-raised-button (click)="this.dialogRef.close(true)">Yes</button>
-    <button mat-raised-button (click)="this.dialogRef.close()">No</button>
+    <button mat-raised-button (click)="this.dialogRef.close(true)">{{'AUR_TABLE.ACTIONS.DELETE.YES' | translate}}</button>
+    <button mat-raised-button (click)="this.dialogRef.close()">{{'AUR_TABLE.ACTIONS.DELETE.NO' | translate}}</button>
   </div>
 </div>

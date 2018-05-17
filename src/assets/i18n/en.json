@@ -1,4 +1,13 @@
 {
+  "AUR_TABLE": {
+    "ACTIONS": {
+      "DELETE": {
+        "CONFIRMATION_MESSAGE": "Are you sure you want to delete this?",
+        "YES": "Yes",
+        "NO": "No"
+      }
+    }
+  },
   "TABLE": {
     "ID_COLUMN": "ID Column"
   }
