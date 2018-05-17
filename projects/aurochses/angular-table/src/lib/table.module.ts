@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +19,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,

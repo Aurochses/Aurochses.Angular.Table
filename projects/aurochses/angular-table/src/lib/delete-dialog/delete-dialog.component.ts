@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import { MatDialogRef } from '@angular/material';
-
 @Component({
   selector: 'aur-delete-dialog',
   templateUrl: './delete-dialog.component.html',
@@ -9,6 +7,6 @@ import { MatDialogRef } from '@angular/material';
 })
 export class DeleteDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>) { }
+  constructor() { }
 
 }

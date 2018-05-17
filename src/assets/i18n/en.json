@@ -2,9 +2,12 @@
   "AUR_TABLE": {
     "ACTIONS": {
       "DELETE": {
-        "CONFIRMATION_MESSAGE": "Are you sure you want to delete this?",
-        "YES": "Yes",
-        "NO": "No"
+        "DIALOG": {
+          "TITLE": "Delete",
+          "MESSAGE": "Are you sure you want to delete this?",
+          "YES": "Yes",
+          "NO": "No"
+        }
       }
     }
   },
