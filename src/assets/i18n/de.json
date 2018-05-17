@@ -1,0 +1,17 @@
+{
+  "AUR_TABLE": {
+    "ACTIONS": {
+      "DELETE": {
+        "DIALOG": {
+          "TITLE": "Löschen",
+          "MESSAGE": "Möchtest du das wirklich löschen?",
+          "YES": "Ja",
+          "NO": "Nein"
+        }
+      }
+    }
+  },
+  "TABLE": {
+    "ID_COLUMN": "ID Säule"
+  }
+}
