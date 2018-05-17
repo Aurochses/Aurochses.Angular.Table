@@ -17,8 +17,6 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 })
 export class TableComponent<T> implements OnInit {
 
-  actionsColumnName = 'actionsColumn';
-
   @Input() viewModel: T;
   @Input() dataSource: MatTableDataSource<T>;
 
@@ -27,6 +25,8 @@ export class TableComponent<T> implements OnInit {
   @Output() deleted = new EventEmitter();
 
   private prototype: any;
+
+  actionsColumnName = 'actionsColumn';
 
   properties: string[];
   columnsToDisplay: string[];
