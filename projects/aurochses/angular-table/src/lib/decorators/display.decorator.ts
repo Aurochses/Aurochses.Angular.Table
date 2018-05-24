@@ -1,3 +1,7 @@
+class DisplayMetadata {
+    public static displayName = `__displayName__`;
+}
+
 export function Display(name: string) {
     return function displayInternal(target: Object, property: string | symbol): void {
         Object.defineProperty(
@@ -12,6 +16,12 @@ export function Display(name: string) {
     };
 }
 
-export class DisplayMetadata {
-    public static displayName = `__displayName__`;
+export function getDisplayName<T>(instance: T, property: string): string {
+    const prototype = Object.getPrototypeOf(instance);
+
+    if (`${DisplayMetadata.displayName}${property}` in prototype) {
+        return prototype[`${DisplayMetadata.displayName}${property}`];
+    } else {
+        return property;
+    }
 }
