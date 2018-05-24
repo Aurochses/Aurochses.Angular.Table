@@ -20,9 +20,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule,
-    AppRoutesModule,
-    MainModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -30,7 +29,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    HttpClientModule
+    AppRoutesModule,
+    MainModule
   ],
   bootstrap: [AppComponent]
 })
