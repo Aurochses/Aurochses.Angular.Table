@@ -1,5 +1,12 @@
 import { ActionsModel } from '../models/actions.model';
 
+class ActionsMetadata {
+    public static show = `__actions__show`;
+    public static allowAdd = `__actions__allowAdd`;
+    public static allowEdit = `__actions__allowEdit`;
+    public static allowDelete = `__actions__allowDelete`;
+}
+
 export function Actions(show = true, allowAdd = true, allowEdit = true, allowDelete = true) {
     return function actionsInternal(target: Object): void {
         Object.defineProperty(
@@ -66,11 +73,4 @@ export function getActionsModel<T>(instance: T): ActionsModel {
     }
 
     return model;
-}
-
-class ActionsMetadata {
-    public static show = `__actions__show`;
-    public static allowAdd = `__actions__allowAdd`;
-    public static allowEdit = `__actions__allowEdit`;
-    public static allowDelete = `__actions__allowDelete`;
 }

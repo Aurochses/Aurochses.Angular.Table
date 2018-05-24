@@ -19,8 +19,8 @@ class TestTableModel {
 }
 
 describe('TableComponent', () => {
-  let component: TableComponent<TestTableModel>;
-  let fixture: ComponentFixture<TableComponent<TestTableModel>>;
+  // let component: TableComponent<TestTableModel>;
+  // let fixture: ComponentFixture<TableComponent<TestTableModel>>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
