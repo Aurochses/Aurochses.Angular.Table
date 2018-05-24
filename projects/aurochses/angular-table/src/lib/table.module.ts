@@ -8,7 +8,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -24,7 +23,6 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatProgressSpinnerModule,
     TranslateModule
   ],
   declarations: [
