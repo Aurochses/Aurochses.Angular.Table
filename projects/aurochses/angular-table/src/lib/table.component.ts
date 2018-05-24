@@ -3,9 +3,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { ActionsMetadata } from './decorators/actions.decorator';
-import { DisplayMetadata } from './decorators/display.decorator';
-import { HiddenMetadata } from './decorators/hidden.decorator';
+import { getActionsModel } from './decorators/actions.decorator';
+import { getDisplayName } from './decorators/display.decorator';
+import { isHidden } from './decorators/hidden.decorator';
 
 import { ActionsModel } from './models/actions.model';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
@@ -17,8 +17,6 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 })
 export class TableComponent<T> implements OnInit {
 
-  actionsColumnName = 'actionsColumn';
-
   @Input() viewModel: T;
   @Input() dataSource: MatTableDataSource<T>;
 
@@ -28,6 +26,8 @@ export class TableComponent<T> implements OnInit {
 
   private prototype: any;
 
+  actionsColumnName = 'actionsColumn';
+
   properties: string[];
   columnsToDisplay: string[];
   actions: ActionsModel;
@@ -35,30 +35,24 @@ export class TableComponent<T> implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.prototype = Object.getPrototypeOf(this.viewModel);
     this.properties = Object.keys(this.viewModel);
 
     this.columnsToDisplay = this.properties
       .filter(
         (property) => {
-          return !(`${HiddenMetadata.isHidden}${property}` in this.prototype
-            && this.prototype[`${HiddenMetadata.isHidden}${property}`] === true);
+          return !isHidden(this.viewModel, property);
         }
       );
 
-    this.actions = new ActionsModel(this.prototype);
+    this.actions = getActionsModel(this.viewModel);
 
     if (this.actions.show === true) {
       this.columnsToDisplay.push(this.actionsColumnName);
     }
   }
 
-  getDisplayName(property: string): string {
-    if (`${DisplayMetadata.displayName}${property}` in this.prototype) {
-      return this.prototype[`${DisplayMetadata.displayName}${property}`];
-    } else {
-      return property;
-    }
+  getColumnDisplayName(property: string): string {
+    return getDisplayName(this.viewModel, property);
   }
 
   add(): void {

@@ -18,7 +18,7 @@
     ],
     "paths": {
       "@aurochses/angular-table": [
-        //"dist/angular-table"
+        //"dist/aurochses/angular-table"
         "projects/aurochses/angular-table/src/public_api.ts"
       ]
     }
