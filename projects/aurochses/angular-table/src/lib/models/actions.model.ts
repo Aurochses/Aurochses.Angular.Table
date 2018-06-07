@@ -1,6 +1,7 @@
 export class ActionsModel {
-    show: boolean;
+    showToolbar: boolean;
     allowAdd: boolean;
+    showActionsColumn: boolean;
     allowEdit: boolean;
     allowDelete: boolean;
 }
