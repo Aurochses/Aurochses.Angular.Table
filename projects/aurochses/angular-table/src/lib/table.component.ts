@@ -46,7 +46,7 @@ export class TableComponent<T> implements OnInit {
 
     this.actions = getActionsModel(this.viewModel);
 
-    if (this.actions.show === true) {
+    if (this.actions.showActionsColumn === true) {
       this.columnsToDisplay.push(this.actionsColumnName);
     }
   }

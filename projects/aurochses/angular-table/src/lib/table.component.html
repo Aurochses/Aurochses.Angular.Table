@@ -1,8 +1,10 @@
 <div class="container">
-  <!--TODO: make mobile friendly controls-->
-  <div>
-    <button mat-icon-button (click)="add()"> <mat-icon color="primary">add_circle_outline</mat-icon> </button>
+  <div *ngIf="actions.showToolbar">
+    <button mat-icon-button color="primary" (click)="add()" disabled="{{!actions.allowAdd}}">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
   </div>
+
   <table mat-table [dataSource]="dataSource">
     <ng-container *ngFor="let property of properties">
 
