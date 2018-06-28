@@ -12,8 +12,6 @@ export class TableModel {
     @DisplayFormat('0.2-2')
     number = 0;
 
-    url = '';
-
     openInNewWindow = false;
 
     @DisplayFormat('yyyy-MM')
