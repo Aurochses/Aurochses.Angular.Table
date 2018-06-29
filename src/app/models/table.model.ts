@@ -1,17 +1,19 @@
-import { Select, Actions, Display, Hidden } from '@aurochses/angular-table';
+import { Select, Actions, Display, DisplayFormat, Hidden } from '@aurochses/angular-table';
 
 @Select(false)
 @Actions()
 export class TableModel {
     @Display('TABLE.ID_COLUMN')
-    id = '';
+    id = 0;
 
     @Hidden()
     icon = '';
 
-    title = '';
-
-    url = '';
+    @DisplayFormat('0.2-2')
+    number = 0;
 
     openInNewWindow = false;
+
+    @DisplayFormat('yyyy-MM')
+    date: Date = new Date();
 }

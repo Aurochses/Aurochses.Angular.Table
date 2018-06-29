@@ -5,8 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TableModel } from '../../models/table.model';
 
 const DATA: TableModel[] = [
-  { id: '1', icon: 'Hydrogen', title: '1.0079', url: 'H', openInNewWindow: true },
-  { id: '2', icon: 'New', title: '2.9', url: 'url', openInNewWindow: false }
+  { id: 1, icon: 'Hydrogen', number: 1.0079, openInNewWindow: true, date: new Date(2018, 0, 31) },
+  { id: 2, icon: 'New', number: 2.9, openInNewWindow: false, date: new Date(2018, 1, 28) }
 ];
 
 @Component({
