@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject, LOCALE_ID } from '@angular/core';
+import { formatNumber, formatDate } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { getSelectModel } from './decorators/select.decorator';
 import { getActionsModel } from './decorators/actions.decorator';
 import { getDisplayName } from './decorators/display.decorator';
+import { hasDisplayFormat, getDisplayFormat } from './decorators/display-format.decorator';
 import { isHidden } from './decorators/hidden.decorator';
 
 import { SelectModel } from './models/select.model';
@@ -28,8 +30,6 @@ export class TableComponent<T> implements OnInit {
   @Output() edited = new EventEmitter<T>();
   @Output() deleted = new EventEmitter();
 
-  private prototype: any;
-
   selectColumnName = 'selectColumn';
   actionsColumnName = 'actionsColumn';
 
@@ -39,7 +39,7 @@ export class TableComponent<T> implements OnInit {
   selection: SelectionModel<T>;
   actions: ActionsModel;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(@Inject(LOCALE_ID) private locale: string, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.properties = Object.keys(this.viewModel);
@@ -88,6 +88,24 @@ export class TableComponent<T> implements OnInit {
 
   getColumnDisplayName(property: string): string {
     return getDisplayName(this.viewModel, property);
+  }
+
+  getColumnValue(item: T, property: string): string {
+    const hasFormat = hasDisplayFormat(this.viewModel, property);
+
+    if (hasFormat === true) {
+      const format = getDisplayFormat(this.viewModel, property);
+
+      if (typeof item[property] === 'number') {
+          return formatNumber(item[property], this.locale, format);
+      }
+
+      if (item[property] instanceof Date) {
+          return formatDate(item[property], format, this.locale);
+      }
+    }
+
+    return item[property];
   }
 
   add(): void {
