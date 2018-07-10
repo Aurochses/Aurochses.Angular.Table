@@ -1,4 +1,4 @@
-import { Select, Actions, Display, DisplayFormat, Hidden } from '@aurochses/angular-table';
+import { Select, Actions, Display, DisplayFormat, Hidden, DataType } from '@aurochses/angular-table';
 
 @Select(false)
 @Actions()
@@ -14,6 +14,6 @@ export class TableModel {
 
     openInNewWindow = false;
 
-    @DisplayFormat('yyyy-MM')
+    @DisplayFormat('yyyy-MM', DataType.date)
     date: Date = new Date();
 }

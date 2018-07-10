@@ -8,11 +8,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { getSelectModel } from './decorators/select.decorator';
 import { getActionsModel } from './decorators/actions.decorator';
 import { getDisplayName } from './decorators/display.decorator';
-import { hasDisplayFormat, getDisplayFormat } from './decorators/display-format.decorator';
+import { hasDisplayFormatModel, getDisplayFormatModel } from './decorators/display-format.decorator';
 import { isHidden } from './decorators/hidden.decorator';
 
 import { SelectModel } from './models/select.model';
 import { ActionsModel } from './models/actions.model';
+import { DataType } from './models/data.type';
+
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
@@ -82,8 +84,8 @@ export class TableComponent<T> implements OnInit {
 
   multiSelectToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   getColumnDisplayName(property: string): string {
@@ -91,17 +93,17 @@ export class TableComponent<T> implements OnInit {
   }
 
   getColumnValue(item: T, property: string): string {
-    const hasFormat = hasDisplayFormat(this.viewModel, property);
+    const hasFormat = hasDisplayFormatModel(this.viewModel, property);
 
     if (hasFormat === true) {
-      const format = getDisplayFormat(this.viewModel, property);
+      const displayFormat = getDisplayFormatModel(this.viewModel, property);
 
-      if (typeof item[property] === 'number') {
-          return formatNumber(item[property], this.locale, format);
+      if (item[property] instanceof Date || displayFormat.dataType === DataType.date) {
+        return formatDate(item[property], displayFormat.format, this.locale);
       }
 
-      if (item[property] instanceof Date) {
-          return formatDate(item[property], format, this.locale);
+      if (typeof item[property] === 'number') {
+        return formatNumber(item[property], this.locale, displayFormat.format);
       }
     }
 
