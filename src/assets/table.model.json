@@ -1,7 +1,9 @@
-{
-    "id": 1,
-    "icon": "doe",
-    "number": 124.434,
-    "openInNewWindow": true,
-    "date": "2012-10-06T09:45:00"
-}
+[
+    {
+        "id": 1,
+        "icon": "doe",
+        "number": 124.434,
+        "openInNewWindow": true,
+        "date": "2012-10-06T09:45:00"
+    }
+]

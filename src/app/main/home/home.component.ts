@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { MatTableDataSource } from '@angular/material/table';
-
 import { TableModel } from '../../models/table.model';
 
 @Component({
@@ -17,11 +15,12 @@ export class HomeComponent implements OnInit {
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.httpClient.get<TableModel[]>(`/assets/table.model.json`).subscribe(
-      (items) => {
-        this.dataSource = items;
-      }
-    );
+    this.httpClient.get<TableModel[]>(`/assets/table.model.json`)
+      .subscribe(
+        (items: TableModel[]) => {
+          this.dataSource = items;
+        }
+      );
   }
 
   select(items: TableModel[]) {
