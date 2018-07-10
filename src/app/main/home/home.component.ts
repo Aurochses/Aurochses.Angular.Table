@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
-
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { TableModel } from '../../models/table.model';
-
-const DATA: TableModel[] = [
-  { id: 1, icon: 'Hydrogen', number: 1.0079, openInNewWindow: true, date: new Date(2018, 0, 31) },
-  { id: 2, icon: 'New', number: 2.9, openInNewWindow: false, date: new Date(2018, 1, 28) }
-];
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   viewModel: TableModel = new TableModel();
-  dataSource = new MatTableDataSource(DATA);
+  dataSource: TableModel[];
+
+  constructor(private httpClient: HttpClient) { }
+
+  ngOnInit(): void {
+    this.httpClient.get<TableModel[]>(`/assets/table.model.json`)
+      .subscribe(
+        (items: TableModel[]) => {
+          this.dataSource = items;
+        }
+      );
+  }
 
   select(items: TableModel[]) {
     console.log(items);
