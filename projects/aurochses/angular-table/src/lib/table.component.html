@@ -1,14 +1,36 @@
 <div class="container">
-  <!--TODO: make mobile friendly controls-->
-  <div>
-    <button mat-icon-button (click)="add()"> <mat-icon color="primary">add_circle_outline</mat-icon> </button>
+  <div *ngIf="actions.showToolbar">
+    <button mat-icon-button color="primary" (click)="add()" disabled="{{!actions.allowAdd}}">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
   </div>
+
   <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="{{selectColumnName}}">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox *ngIf="select.allowMultiSelect"
+                      (change)="$event ? multiSelectToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let item">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(item) : null"
+                      [checked]="selection.isSelected(item)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
     <ng-container *ngFor="let property of properties">
 
       <ng-container matColumnDef="{{property}}">
-        <th mat-header-cell *matHeaderCellDef>{{getColumnDisplayName(property) | translate}}</th>
-        <td mat-cell *matCellDef="let item">{{item[property]}}</td>
+        <th mat-header-cell *matHeaderCellDef>
+          {{getColumnDisplayName(property) | translate}}
+        </th>
+        <td mat-cell *matCellDef="let item">
+          {{getColumnValue(item, property)}}
+        </td>
       </ng-container>
 
     </ng-container>
@@ -27,7 +49,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let item; columns: columnsToDisplay"></tr>
   </table>
 
   <ng-container

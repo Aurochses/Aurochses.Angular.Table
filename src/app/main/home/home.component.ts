@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { TableModel } from '../../models/table.model';
 
@@ -8,10 +7,25 @@ import { TableModel } from '../../models/table.model';
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   viewModel: TableModel = new TableModel();
-  dataSource = new MatTableDataSource(DATA);
+  dataSource: TableModel[];
+
+  constructor(private httpClient: HttpClient) { }
+
+  ngOnInit(): void {
+    this.httpClient.get<TableModel[]>(`/assets/table.model.json`)
+      .subscribe(
+        (items: TableModel[]) => {
+          this.dataSource = items;
+        }
+      );
+  }
+
+  select(items: TableModel[]) {
+    console.log(items);
+  }
 
   add(): void {
     console.log('user clicked add button');
@@ -25,7 +39,3 @@ export class HomeComponent {
     console.log(item);
   }
 }
-
-const DATA: TableModel[] = [
-  { id: '1', icon: 'Hydrogen', title: '1.0079', url: 'H', openInNewWindow: true }
-];
