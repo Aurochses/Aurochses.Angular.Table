@@ -1,14 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material';
 
 import { getActionsModel } from './decorators/actions.decorator';
+import { getPaginatorModel } from './decorators/paginator.decorator';
 import { getDisplayName } from './decorators/display.decorator';
 import { isHidden } from './decorators/hidden.decorator';
 
 import { ActionsModel } from './models/actions.model';
+import { PaginatorModel } from './models/paginator.model';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+
 
 @Component({
   selector: 'aur-table',
@@ -24,6 +28,8 @@ export class TableComponent<T> implements OnInit {
   @Output() edited = new EventEmitter<T>();
   @Output() deleted = new EventEmitter();
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   private prototype: any;
 
   actionsColumnName = 'actionsColumn';
@@ -31,6 +37,7 @@ export class TableComponent<T> implements OnInit {
   properties: string[];
   columnsToDisplay: string[];
   actions: ActionsModel;
+  paginatorOptions: PaginatorModel;
 
   constructor(private dialog: MatDialog) { }
 
@@ -45,10 +52,12 @@ export class TableComponent<T> implements OnInit {
       );
 
     this.actions = getActionsModel(this.viewModel);
+    this.paginatorOptions = getPaginatorModel(this.viewModel);
 
     if (this.actions.show === true) {
       this.columnsToDisplay.push(this.actionsColumnName);
     }
+    this.dataSource.paginator = this.paginator;
   }
 
   getColumnDisplayName(property: string): string {

@@ -5,4 +5,5 @@
 export * from './lib/decorators/actions.decorator';
 export * from './lib/decorators/display.decorator';
 export * from './lib/decorators/hidden.decorator';
+export * from './lib/decorators/paginator.decorator';
 export * from './lib/table.module';

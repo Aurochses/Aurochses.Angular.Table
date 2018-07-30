@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -25,6 +26,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatButtonModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     TranslateModule
   ],
   declarations: [

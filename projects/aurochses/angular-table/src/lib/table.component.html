@@ -29,4 +29,17 @@
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
   </table>
+
+  <ng-container
+    *ngIf="paginatorOptions.showFirstLastButtons; then showButtons; else noButtons">
+  </ng-container>
+
+  <ng-template #showButtons>
+    <mat-paginator [pageSizeOptions]="paginatorOptions.itemsCount" showFirstLastButtons></mat-paginator>
+  </ng-template>
+
+  <ng-template #noButtons>
+    <mat-paginator [pageSizeOptions]="paginatorOptions.itemsCount"></mat-paginator>
+  </ng-template>
+
 </div>

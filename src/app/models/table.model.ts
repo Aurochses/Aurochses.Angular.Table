@@ -1,6 +1,7 @@
-import { Actions, Display, Hidden } from '@aurochses/angular-table';
+import {Actions, Display, Hidden, Paginator} from '@aurochses/angular-table';
 
 @Actions()
+@Paginator(true, [1, 2, 3], false)
 export class TableModel {
     @Display('TABLE.ID_COLUMN')
     id = '';
