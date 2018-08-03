@@ -1,7 +1,7 @@
 import {PaginatorModel} from '../models/paginator.model';
 
 export function Paginator(show = true, itemsCount = [], showFirstLastButtons = true) {
-  return function actionsInternal(target: Object): void {
+  return function paginatorInternal(target: Object): void {
     Object.defineProperty(
       target,
       `${PaginatorMetadata.show}`,

@@ -10,7 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { TableComponent } from './table.component';
@@ -28,6 +29,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    MatSortModule,
     TranslateModule
   ],
   declarations: [

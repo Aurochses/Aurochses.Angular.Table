@@ -1,11 +1,12 @@
-import {Select, Actions, Display, DisplayFormat, Hidden, DataType, Paginator} from '@aurochses/angular-table';
+import {Select, Actions, Display, DisplayFormat, Hidden, DataType, Paginator, Sort} from '@aurochses/angular-table';
 
 
 @Select(false)
 @Actions()
-@Paginator(true, [1, 2, 3], false)
+@Paginator(true, [1, 2, 3], true)
 export class TableModel {
     @Display('TABLE.ID_COLUMN')
+    @Sort(true)
     id = 0;
 
     @Hidden()

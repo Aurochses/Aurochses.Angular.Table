@@ -5,7 +5,7 @@
     </button>
   </div>
 
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="{{selectColumnName}}">
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox *ngIf="select.allowMultiSelect"
@@ -25,9 +25,19 @@
     <ng-container *ngFor="let property of properties">
 
       <ng-container matColumnDef="{{property}}">
-        <th mat-header-cell *matHeaderCellDef>
-          {{getColumnDisplayName(property) | translate}}
-        </th>
+
+        <ng-container
+          *ngIf="getSorting(property); then showSort; else noSort">
+        </ng-container>
+
+        <ng-template #showSort>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{getColumnDisplayName(property) | translate}}</th>
+        </ng-template>
+
+        <ng-template #noSort>
+          <th mat-header-cell *matHeaderCellDef>{{getColumnDisplayName(property) | translate}}</th>
+        </ng-template>
+
         <td mat-cell *matCellDef="let item">
           {{getColumnValue(item, property)}}
         </td>

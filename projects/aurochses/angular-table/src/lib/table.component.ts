@@ -1,25 +1,37 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, LOCALE_ID, ViewChild } from '@angular/core';
-import { formatNumber, formatDate } from '@angular/common';
-import { SelectionModel } from '@angular/cdk/collections';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  Inject,
+  LOCALE_ID,
+  ViewChild,
+  AfterContentInit, AfterViewInit, OnChanges
+} from '@angular/core';
+import {formatNumber, formatDate} from '@angular/common';
+import {SelectionModel} from '@angular/cdk/collections';
 
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator, MatSort} from '@angular/material';
 
-import { getSelectModel } from './decorators/select.decorator';
-import { getActionsModel } from './decorators/actions.decorator';
-import { getPaginatorModel } from './decorators/paginator.decorator';
-import { getDisplayName } from './decorators/display.decorator';
-import { hasDisplayFormatModel, getDisplayFormatModel } from './decorators/display-format.decorator';
-import { isHidden } from './decorators/hidden.decorator';
+import {getSelectModel} from './decorators/select.decorator';
+import {getActionsModel} from './decorators/actions.decorator';
+import {getPaginatorModel} from './decorators/paginator.decorator';
+import {getDisplayName} from './decorators/display.decorator';
+import {hasDisplayFormatModel, getDisplayFormatModel} from './decorators/display-format.decorator';
+import {isHidden} from './decorators/hidden.decorator';
+import {getSortModel, isSort} from './decorators/sort.decorator';
 
-import { SelectModel } from './models/select.model';
-import { ActionsModel } from './models/actions.model';
+import {SelectModel} from './models/select.model';
+import {ActionsModel} from './models/actions.model';
 
-import { PaginatorModel } from './models/paginator.model';
-import { DataType } from './models/data.type';
+import {PaginatorModel} from './models/paginator.model';
+import {DataType} from './models/data.type';
 
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
+import {SortModel} from './models/sort.model';
 
 
 @Component({
@@ -27,7 +39,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
   templateUrl: './table.component.html',
   styleUrls: ['table.component.scss']
 })
-export class TableComponent<T> implements OnInit {
+export class TableComponent<T> implements OnInit, OnChanges {
 
   @Input() viewModel: T;
   @Input() dataSource: MatTableDataSource<T>;
@@ -38,6 +50,7 @@ export class TableComponent<T> implements OnInit {
   @Output() deleted = new EventEmitter();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   private prototype: any;
 
@@ -51,13 +64,13 @@ export class TableComponent<T> implements OnInit {
   actions: ActionsModel;
   paginatorOptions: PaginatorModel;
 
-  constructor(@Inject(LOCALE_ID) private locale: string, private dialog: MatDialog) { }
+  constructor(@Inject(LOCALE_ID) private locale: string, private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.properties = Object.keys(this.viewModel);
 
     this.select = getSelectModel(this.viewModel);
-
     if (this.select.allowSelect === true) {
       this.selection = new SelectionModel<T>(this.select.allowMultiSelect);
       this.selection.onChange.subscribe(
@@ -84,7 +97,13 @@ export class TableComponent<T> implements OnInit {
     if (this.actions.showActionsColumn === true) {
       this.columnsToDisplay.push(this.actionsColumnName);
     }
-    this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnChanges() {
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
   isAllSelected() {
@@ -98,6 +117,10 @@ export class TableComponent<T> implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  getSorting(property: string): boolean {
+    return isSort(this.viewModel, property);
   }
 
   getColumnDisplayName(property: string): string {
